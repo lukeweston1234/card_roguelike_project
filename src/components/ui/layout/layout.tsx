@@ -10,7 +10,9 @@ export default function Layout({ children }: LayoutProps) {
       <div className="flex h-[90px] w-screen flex-row bg-slate-400">
         <h2>Header</h2>
       </div>
-      <div className="h-full w-full">{children}</div>
+      <div className="m-8 flex h-auto w-auto flex-row justify-around">
+        {children}
+      </div>
     </div>
   );
 }
