@@ -11,9 +11,24 @@ export interface CardProps {
   isFacingUp: boolean;
 }
 
+enum AnimationState {
+  Start,
+  End,
+  Inactive,
+}
+
 export default function Card(cardProps: CardProps) {
-  const [isFacingUp, setIsFacingUp] = useState(cardProps.isFacingUp);
-  const [isHovering, setIsHovering] = useState(false);
+  const [isFacingUp, setIsFacingUp] = useState<boolean>(cardProps.isFacingUp);
+  const [isHovering, setIsHovering] = useState<boolean>(false);
+
+  //We create three animation states, one for the first half of the animation, one for the second, and one for when the animation state is over
+  //We do this because we are actually rendering different components halfway through the animation, so we need to handle some JS logic rather
+  //Than just using CSS/Tailwind
+
+  const [animationState, setAnimationState] = useState<AnimationState>(
+    AnimationState.Inactive
+  );
+
   const calcX = (y: number, ly: number) =>
     -(y - ly - window.innerHeight / 2) / 20;
   const calcY = (x: number, lx: number) =>
@@ -56,14 +71,19 @@ export default function Card(cardProps: CardProps) {
         //On hover, we increase the scale by 5 percent, and set isHovering to true for the tailwind shadw
         //When we are not hovering (there is not a onHoverEnd hook), we reset all of the properties to set the card down,
         //And change the tailwindCSS shadow to be smaller
-        hovering
-          ? api({ scale: 1.05 }) && setIsHovering(true)
-          : api({
-              rotateX: 0,
-              rotateY: 0,
-              rotateZ: 0,
-              scale: 1,
-            }) && setIsHovering(false),
+        {
+          hovering
+            ? api({ scale: 1.05 }) && setIsHovering(true)
+            : api({
+                rotateX: 0,
+                rotateY: 0,
+                rotateZ: 0,
+                scale: 1,
+              }) && setIsHovering(false);
+        },
+      onClick: () => {
+        setIsFacingUp(!isFacingUp);
+      },
     },
     { drag: { filterTaps: true, bounds: document.body } }
   );
@@ -72,7 +92,6 @@ export default function Card(cardProps: CardProps) {
     return (
       <animated.div
         {...bind()}
-        onClick={() => setIsFacingUp(!isFacingUp)}
         style={{
           x,
           y,
@@ -85,7 +104,9 @@ export default function Card(cardProps: CardProps) {
           isHovering
             ? "z-[100] shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px]"
             : "shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px]"
-        } `}
+        }
+        
+        `}
       >
         <img
           className="h-[400px] w-[256px] rounded-[22px]"
@@ -103,7 +124,6 @@ export default function Card(cardProps: CardProps) {
   return (
     <animated.div
       {...bind()}
-      onClick={() => setIsFacingUp(!isFacingUp)}
       style={{
         x,
         y,
