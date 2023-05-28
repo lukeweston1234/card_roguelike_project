@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import cardBottom from "../../../assets/card_bottom.png";
 import cardImage from "../../../assets/card.png";
 
-interface CardProps {
+export interface CardProps {
   cardName: string;
   image: string;
   cardDescription: string;
