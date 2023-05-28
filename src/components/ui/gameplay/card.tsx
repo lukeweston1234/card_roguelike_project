@@ -25,9 +25,8 @@ export default function Card(cardProps: CardProps) {
   //We do this because we are actually rendering different components halfway through the animation, so we need to handle some JS logic rather
   //Than just using CSS/Tailwind
 
-  const [animationState, setAnimationState] = useState<AnimationState>(
-    AnimationState.Inactive
-  );
+  const [isAnimationUnderway, setIsAnimationUnderway] =
+    useState<boolean>(false);
 
   const calcX = (y: number, ly: number) =>
     -(y - ly - window.innerHeight / 2) / 20;
@@ -48,11 +47,9 @@ export default function Card(cardProps: CardProps) {
     {
       onDrag: ({ event, initial, offset: [x, y] }) => {
         event.preventDefault();
-        console.log(initial);
         api({ x, y });
       },
       onDragEnd: ({ initial }) => {
-        console.log(initial);
         api({
           rotateX: 0,
           rotateY: 0,
@@ -63,6 +60,7 @@ export default function Card(cardProps: CardProps) {
       //Handles rotation of card when not dragging
       onMove: ({ xy: [px, py], dragging }) =>
         !dragging &&
+        !isAnimationUnderway &&
         api({
           rotateX: calcX(py, y.get()),
           rotateY: calcY(px, x.get()),
@@ -82,7 +80,27 @@ export default function Card(cardProps: CardProps) {
               }) && setIsHovering(false);
         },
       onClick: () => {
-        setIsFacingUp(!isFacingUp);
+        console.log("Entry point, isAnimationUnderway", isAnimationUnderway);
+        if (isAnimationUnderway) return;
+        setIsAnimationUnderway(true);
+        api({
+          rotateY: 90,
+        });
+        setTimeout(() => {
+          console.log("start of timeout, is Facing up", isFacingUp);
+          setIsFacingUp(!isFacingUp);
+          setIsAnimationUnderway(false);
+          api({
+            rotateX: 0,
+            rotateY: 0,
+            rotateZ: 0,
+            scale: 1,
+          });
+          console.log(
+            "end of timeout, isAnimationUnderway",
+            isAnimationUnderway
+          );
+        }, 300);
       },
     },
     { drag: { filterTaps: true, bounds: document.body } }
@@ -105,7 +123,6 @@ export default function Card(cardProps: CardProps) {
             ? "z-[100] shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px]"
             : "shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px]"
         }
-        
         `}
       >
         <img
@@ -136,7 +153,8 @@ export default function Card(cardProps: CardProps) {
         isHovering
           ? "z-[100] shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px]"
           : "shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px]"
-      } `}
+      }
+      `}
     >
       <img className="w-[256px] rounded-[22px]" src={cardImage}></img>
     </animated.div>
