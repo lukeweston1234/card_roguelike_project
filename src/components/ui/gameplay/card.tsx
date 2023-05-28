@@ -15,14 +15,17 @@ export default function Card(cardProps: CardProps) {
     return (
       <div
         onClick={() => setIsFacingUp(!isFacingUp)}
-        className="relative m-0 h-[400px] w-[256px] flex-shrink-0 rounded-[22px] rounded-[22px] "
+        className="relative m-0 h-[400px] w-[256px] flex-shrink-0 rounded-[22px]  "
       >
         <img
           className="h-[400px] w-[256px] rounded-[22px]"
           src={cardProps.image}
         ></img>
         <div className="absolute bottom-0 left-0 self-end ">
-          <img className="w-[256px]" src={cardBottom}></img>
+          <img
+            className="h-[104px] w-[256px] rounded-b-[22px]"
+            src={cardBottom}
+          ></img>
         </div>
       </div>
     );
@@ -30,9 +33,9 @@ export default function Card(cardProps: CardProps) {
   return (
     <div
       onClick={() => setIsFacingUp(!isFacingUp)}
-      className="m-0 flex h-[400px] w-[256px] flex-shrink-0 flex-col rounded-[22px] rounded-[22px]  "
+      className="m-0 flex h-[400px] w-[256px] flex-shrink-0 flex-col rounded-[22px]   "
     >
-      <img className="w-[256px]" src={cardImage}></img>
+      <img className="w-[256px] rounded-[22px]" src={cardImage}></img>
     </div>
   );
 }
