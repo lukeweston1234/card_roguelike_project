@@ -9,3 +9,8 @@ html {
 body {
   @apply h-screen;
 }
+
+body,
+html {
+  overflow: hidden;
+}
