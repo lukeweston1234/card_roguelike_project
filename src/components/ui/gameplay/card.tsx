@@ -9,12 +9,7 @@ export interface CardProps {
   image: string;
   cardDescription: string;
   isFacingUp: boolean;
-}
-
-enum AnimationState {
-  Start,
-  End,
-  Inactive,
+  isActive: boolean;
 }
 
 export default function Card(cardProps: CardProps) {
@@ -45,11 +40,11 @@ export default function Card(cardProps: CardProps) {
   }));
   const bind = useGesture(
     {
-      onDrag: ({ event, initial, offset: [x, y] }) => {
+      onDrag: ({ event, offset: [x, y] }) => {
         event.preventDefault();
         api({ x, y });
       },
-      onDragEnd: ({ initial }) => {
+      onDragEnd: () => {
         api({
           rotateX: 0,
           rotateY: 0,
@@ -80,14 +75,12 @@ export default function Card(cardProps: CardProps) {
               }) && setIsHovering(false);
         },
       onClick: () => {
-        console.log("Entry point, isAnimationUnderway", isAnimationUnderway);
         if (isAnimationUnderway) return;
         setIsAnimationUnderway(true);
         api({
           rotateY: 90,
         });
         setTimeout(() => {
-          console.log("start of timeout, is Facing up", isFacingUp);
           setIsFacingUp(!isFacingUp);
           setIsAnimationUnderway(false);
           api({
@@ -96,10 +89,6 @@ export default function Card(cardProps: CardProps) {
             rotateZ: 0,
             scale: 1,
           });
-          console.log(
-            "end of timeout, isAnimationUnderway",
-            isAnimationUnderway
-          );
         }, 300);
       },
     },

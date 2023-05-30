@@ -9,12 +9,14 @@ function App() {
     cardDescription: "Test Description",
     image: geraldImage,
     isFacingUp: false,
+    isActive: true,
   };
   const testCardPropsTwo = {
     cardName: "A.M.A.N.D.A",
     cardDescription: "Test Description",
     image: amandaImage,
     isFacingUp: true,
+    isActive: true,
   };
   return (
     <Layout>
