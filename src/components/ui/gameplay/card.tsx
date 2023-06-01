@@ -115,11 +115,13 @@ export default function Card(cardProps: CardProps) {
         `}
       >
         <img
+          draggable="false"
           className="h-[400px] w-[256px] rounded-[22px]"
           src={cardProps.image}
         ></img>
         <div className="absolute bottom-0 left-0 self-end ">
           <img
+            draggable="false"
             className="h-[104px] w-[256px] rounded-b-[22px]"
             src={cardBottom}
           ></img>
@@ -145,7 +147,11 @@ export default function Card(cardProps: CardProps) {
       }
       `}
     >
-      <img className="w-[256px] rounded-[22px]" src={cardImage}></img>
+      <img
+        className="w-[256px] rounded-[22px]"
+        draggable="false"
+        src={cardImage}
+      ></img>
     </animated.div>
   );
 }
