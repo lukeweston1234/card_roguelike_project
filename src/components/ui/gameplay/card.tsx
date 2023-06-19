@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
-import cardBottom from "../../../assets/card_bottom.png";
-import cardImage from "../../../assets/card.png";
+import cardBottom from "../../../assets/images/card_bottom.png";
+import cardImage from "../../../assets/images/card.png";
 import { useSpring, animated, to } from "@react-spring/web";
 import { useDrag, useGesture } from "@use-gesture/react";
-
-export interface CardProps {
-  cardName: string;
-  image: string;
-  cardDescription: string;
-  isFacingUp: boolean;
-  isActive: boolean;
-}
+import { HeartIcon } from "@heroicons/react/24/outline";
+import { CardProps } from "../../../models/cardProps";
 
 export default function Card(cardProps: CardProps) {
   const [isFacingUp, setIsFacingUp] = useState<boolean>(cardProps.isFacingUp);
@@ -119,6 +113,15 @@ export default function Card(cardProps: CardProps) {
           className="h-[400px] w-[256px] rounded-[22px]"
           src={cardProps.image}
         ></img>
+        <div className="flex flex-col items-center absolute top-0 rounded-t-[22px] left-0 w-full h-[140px] bg-gradient-to-b from-[#091122] [via-transparent] to-[rgba(9, 17, 34, 0)]">
+          <h2 className="m-2 font-card-header bg-pink-glow text-transparent bg-clip-text text-3xl ">{cardProps.cardName}</h2>
+          <div className="flex flex-row">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#F2BFD7" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+          </svg>
+
+          </div>
+        </div>
         <div className="absolute bottom-0 left-0 self-end ">
           <img
             draggable="false"
