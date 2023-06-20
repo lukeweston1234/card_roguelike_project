@@ -1,5 +1,5 @@
-import Card from "./components/ui/gameplay/card";
-import Layout from "./components/ui/layout/layout";
+import Card from "./features/gameplay/card/card";
+import Layout from "./shared/ui/layout/layout";
 import amandaImage from "./assets/images/amanda_assasin.png";
 import geraldImage from "./assets/images/gerald_sniper.png";
 import { CardProps } from "./models/cardProps";
