@@ -10,6 +10,12 @@
   src: local('KARIXBY', url("./assets/fonts/KARIXBY-Outline.otf") format('otf'))
 }
 
+@layer components {
+  .neon-text {
+    @apply bg-pink-glow text-transparent bg-clip-text
+  }
+}
+
 html {
   @apply h-screen;
 }

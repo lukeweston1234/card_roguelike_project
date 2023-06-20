@@ -4,8 +4,6 @@ import amandaImage from "./assets/images/amanda_assasin.png";
 import geraldImage from "./assets/images/gerald_sniper.png";
 import { CardProps } from "./models/cardProps";
 
-
-
 function App() {
   const testCardPropsOne: CardProps = {
     cardName: "Gerald",
@@ -18,8 +16,8 @@ function App() {
       health: 110,
       cost: 220,
       energy: 80,
-      class: "Specialist"
-    }
+      class: "Specialist",
+    },
   };
   const testCardPropsTwo: CardProps = {
     cardName: "A.M.A.N.D.A",
@@ -32,8 +30,8 @@ function App() {
       health: 80,
       cost: 180,
       energy: 140,
-      class: "Specialist"
-    }
+      class: "Specialist",
+    },
   };
   return (
     <Layout>
